@@ -1,0 +1,31 @@
+### How do you migrate pipelines from one CI/CD tool to another?
+
+“When migrating pipelines, I first analyze the existing pipeline stages and dependencies — like build, test, scan, deploy steps. Then I map them to the new CI/CD tool’s features.
+For example, if moving from Jenkins to GitHub Actions, I’ll convert Jenkins stages into YAML workflows, ensuring environment variables, secrets, and agent images are compatible.
+I also test each stage in isolation and use version control for the pipeline definitions so rollback is easy.”
+
+### How do you store secrets in CI/CD securely?
+
+“Secrets should never be hardcoded. I use the CI/CD platform’s native secret manager — like GitHub Secrets, GitLab CI Variables, or Jenkins Credentials Plugin.
+For better security, I integrate with external secret managers like AWS Secrets Manager or Vault.
+Also, I make sure secrets are masked in logs and only injected at runtime into the pipeline jobs that need them.”
+
+### Why is GitHub Actions gaining popularity?
+
+“GitHub Actions is popular because it’s built directly into GitHub, so it’s easy to set up and version pipelines as code in the same repo.
+It supports reusable workflows, matrix builds, and integrates well with cloud services.
+Also, the marketplace has thousands of prebuilt actions, which speeds up automation without writing everything from scratch.”
+
+️### Can Docker containers be used as CI/CD agents?
+
+“Yes, absolutely. CI/CD jobs can run inside Docker containers.
+It provides clean, reproducible environments — each build runs in isolation with all dependencies.
+For example, in Jenkins, we can use Docker agents, and in GitHub Actions, we can define container jobs.
+It makes builds more consistent and portable across different environments.”
+
+️### How do you enforce pipeline security from Git to deployment?
+
+“Pipeline security starts at the commit stage. I enable branch protection and code scanning tools like SonarQube or Trivy.
+During CI, I add vulnerability scans for dependencies and container images.
+During CD, I use signed images, enforce RBAC, and require approvals for production deployments.
+Also, I use least-privilege service accounts and audit pipeline logs regularly.”
