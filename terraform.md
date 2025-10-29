@@ -1,4 +1,4 @@
-How do you securely store the state file?
+###How do you securely store the state file?
 
 “State files contain sensitive data like credentials, so I never keep them locally.
 I use remote backends like AWS S3 with DynamoDB for state locking, or Terraform Cloud for managed storage.
@@ -38,26 +38,26 @@ replace_triggered_by to recreate when another resource changes”
 terraform plan compares the current state with configuration to show proposed changes.
 terraform apply executes those changes and updates the state file.”
 
-1. How do you use Terraform in your environment?
+### How do you use Terraform in your environment?
 
 I use Terraform for provisioning and managing infrastructure as code.
 For example, I’ve created reusable Terraform modules for AWS services like VPC, EC2, EKS, and RDS.
 I maintain separate workspaces for dev, staging, and prod environments and store state files remotely in an S3 bucket with DynamoDB table for state locking.
 This allows version control, consistency, and easy rollback of infrastructure changes.
 
-🔹 2. How will you utilize Terraform modules and version upgrade in your environment?
+### How will you utilize Terraform modules and version upgrade in your environment?
 
 I structure Terraform code using modules for reusability — for example, one module for networking, one for compute, one for IAM.
 Each module is version-controlled in Git. When upgrading Terraform or a provider version, I test it first in a dev workspace using terraform init -upgrade, then apply changes in staging before promoting to production.
 This ensures backward compatibility and reduces production risk.
 
-🔹 3. What security, autoscaling, and scalability approaches are you using in your environment?
+### What security, autoscaling, and scalability approaches are you using in your environment?
 
 For security, I implement IAM roles with least privilege, use encrypted S3 buckets and EBS volumes, enable security groups and NACLs, and enforce SSL/TLS for data in transit.
 For autoscaling, I configure AWS Auto Scaling Groups for EC2 and Horizontal Pod Autoscaler (HPA) in Kubernetes based on CPU/memory utilization.
 For scalability, I use load balancers (ALB/NLB) with multi-AZ deployment and Infrastructure-as-Code (Terraform) to replicate infrastructure easily across regions.
 
-🔹 4. Can you give some instances of using Ansible?
+### Can you give some instances of using Ansible?
 
 I use Ansible mainly for configuration management and post-provisioning automation.
 Examples:
