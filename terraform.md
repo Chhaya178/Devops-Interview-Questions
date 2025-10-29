@@ -37,3 +37,55 @@ replace_triggered_by to recreate when another resource changes”
 “terraform init sets up the backend and downloads provider plugins.
 terraform plan compares the current state with configuration to show proposed changes.
 terraform apply executes those changes and updates the state file.”
+
+1. How do you use Terraform in your environment?
+
+I use Terraform for provisioning and managing infrastructure as code.
+For example, I’ve created reusable Terraform modules for AWS services like VPC, EC2, EKS, and RDS.
+I maintain separate workspaces for dev, staging, and prod environments and store state files remotely in an S3 bucket with DynamoDB table for state locking.
+This allows version control, consistency, and easy rollback of infrastructure changes.
+
+🔹 2. How will you utilize Terraform modules and version upgrade in your environment?
+
+I structure Terraform code using modules for reusability — for example, one module for networking, one for compute, one for IAM.
+Each module is version-controlled in Git. When upgrading Terraform or a provider version, I test it first in a dev workspace using terraform init -upgrade, then apply changes in staging before promoting to production.
+This ensures backward compatibility and reduces production risk.
+
+🔹 3. What security, autoscaling, and scalability approaches are you using in your environment?
+
+For security, I implement IAM roles with least privilege, use encrypted S3 buckets and EBS volumes, enable security groups and NACLs, and enforce SSL/TLS for data in transit.
+For autoscaling, I configure AWS Auto Scaling Groups for EC2 and Horizontal Pod Autoscaler (HPA) in Kubernetes based on CPU/memory utilization.
+For scalability, I use load balancers (ALB/NLB) with multi-AZ deployment and Infrastructure-as-Code (Terraform) to replicate infrastructure easily across regions.
+
+🔹 4. Can you give some instances of using Ansible?
+
+I use Ansible mainly for configuration management and post-provisioning automation.
+Examples:
+
+Installing Docker and Kubernetes components on EC2 instances
+
+Setting up Prometheus and Grafana monitoring agents
+
+Automating package updates and security patches
+I use Ansible playbooks integrated with Jenkins pipelines to achieve consistent configurations.
+
+### What are you doing for monitoring your resources?
+
+I use a combination of Prometheus + Grafana for metrics, ELK/EFK stack for logs, and CloudWatch for AWS services.
+Alerts are configured via Alertmanager (email/Slack).
+I also use tools like Loki for lightweight log aggregation and Node Exporter for system-level metrics.
+This setup helps in proactive monitoring and quick troubleshooting.
+
+### Suppose you want to host one application job on any cloud. How will you approach it?
+
+First, I’ll identify the application requirements — language, dependencies, storage, scalability, and networking.
+Then I’ll choose an appropriate service (like EC2, ECS, or EKS).
+I’ll write Terraform scripts to provision infrastructure, set up CI/CD using Jenkins/GitHub Actions, containerize the app with Docker, deploy it to Kubernetes, and expose it via ALB or Ingress.
+I’ll also integrate monitoring and logging from day one.
+
+### What will be your approach for creating a security group for the instance?
+
+I’ll define security groups using Terraform — specifying ingress and egress rules based on the principle of least privilege.
+For example, allowing port 22 from specific IPs for SSH and port 80/443 for web traffic.
+I’ll use variables for flexibility and tag resources for easier management.
+Everything is version-controlled in Git to ensure auditable security changes.
